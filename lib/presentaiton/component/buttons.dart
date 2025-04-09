@@ -15,11 +15,31 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        body: ButtonsWidget(
-          onClick: () {
-            print('click button');
-          },
-          buttons: Buttons(name: 'buttons'),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BigButtonsWidget(
+              onClick: () {
+                print('Big button');
+              },
+              buttons: Buttons(name: 'buttons'),
+            ),
+            SizedBox(height: 20),
+            MediumButtonsWidget(
+              onClick: () {
+                print('Medium button');
+              },
+              buttons: Buttons(name: 'buttons'),
+            ),
+            SizedBox(height: 20),
+            SmallButtonsWidget(
+              onClick: () {
+                print('Small button');
+              },
+              buttons: Buttons(name: 'buttons'),
+            ),
+          ],
         ),
       ),
     );
@@ -32,103 +52,117 @@ class Buttons {
   const Buttons({required this.name});
 }
 
-class ButtonsWidget extends StatelessWidget implements TextStyles {
+class BigButtonsWidget extends StatelessWidget {
   final VoidCallback onClick;
   final Buttons buttons;
 
-  const ButtonsWidget({required this.onClick, required this.buttons});
+  const BigButtonsWidget({required this.onClick, required this.buttons});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: onClick,
-            child: Container(
-              width: 315,
-              height: 60,
-              decoration: BoxDecoration(
-                color: ColorStyles.primary100,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 85),
-                  Text(
-                    buttons.name,
-                    style: TextStyles.mediumTextBold.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward, color: Colors.white, size: 20),
-                  const SizedBox(width: 85),
-                ],
-              ),
-            ),
+      child: GestureDetector(
+        onTap: onClick,
+        child: Container(
+          width: 315,
+          height: 60,
+          decoration: BoxDecoration(
+            color: ColorStyles.primary100,
+            borderRadius: BorderRadius.circular(10),
           ),
-
-          const SizedBox(height: 50),
-
-          GestureDetector(
-            onTap: onClick,
-            child: Container(
-              width: 243,
-              height: 54,
-              decoration: BoxDecoration(
-                color: ColorStyles.primary100,
-                borderRadius: BorderRadius.circular(10),
+          child: Row(
+            children: [
+              const SizedBox(width: 85),
+              Text(
+                buttons.name,
+                style: TextStyles.mediumTextBold.copyWith(
+                  color: Colors.white,
+                ),
               ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 50),
-                  Text(
-                    buttons.name,
-                    style: TextStyles.normalTextBold.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward, color: Colors.white, size: 20),
-                  const SizedBox(width: 50),
-                ],
-              ),
-            ),
+              Spacer(),
+              Icon(Icons.arrow_forward, color: Colors.white, size: 20),
+              const SizedBox(width: 85),
+            ],
           ),
+        ),
+      ),
+    );
+  }
+}
 
-          const SizedBox(height: 50),
+class MediumButtonsWidget extends StatelessWidget {
+  final VoidCallback onClick;
+  final Buttons buttons;
 
-          GestureDetector(
-            onTap: onClick,
-            child: Container(
-              width: 174,
-              height: 37,
-              decoration: BoxDecoration(
-                color: ColorStyles.primary100,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 30),
-                  Text(
-                    buttons.name,
-                    style: TextStyles.normalTextBold.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward, color: Colors.white, size: 20),
-                  const SizedBox(width: 30),
-                ],
-              ),
-            ),
+  const MediumButtonsWidget({required this.onClick, required this.buttons});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+        onTap: onClick,
+        child: Container(
+          width: 243,
+          height: 54,
+          decoration: BoxDecoration(
+            color: ColorStyles.primary100,
+            borderRadius: BorderRadius.circular(10),
           ),
-        ],
+          child: Row(
+            children: [
+              const SizedBox(width: 50),
+              Text(
+                buttons.name,
+                style: TextStyles.normalTextBold.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Spacer(),
+              Icon(Icons.arrow_forward, color: Colors.white, size: 20),
+              const SizedBox(width: 50),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SmallButtonsWidget extends StatelessWidget {
+  final VoidCallback onClick;
+  final Buttons buttons;
+
+  const SmallButtonsWidget({required this.onClick, required this.buttons});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+        onTap: onClick,
+        child: Container(
+          width: 174,
+          height: 37,
+          decoration: BoxDecoration(
+            color: ColorStyles.primary100,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              const SizedBox(width: 30),
+              Text(
+                buttons.name,
+                style: TextStyles.normalTextBold.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Spacer(),
+              Icon(Icons.arrow_forward, color: Colors.white, size: 20),
+              const SizedBox(width: 30),
+            ],
+          ),
+        ),
       ),
     );
   }
