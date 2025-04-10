@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/presentaiton/component/filter_button.dart';
 import 'package:recipe_app/presentaiton/component/ingredient_item.dart';
 import 'package:recipe_app/presentaiton/component/recipe_card.dart';
 
@@ -26,6 +27,15 @@ class MyApp extends StatelessWidget {
                   author: 'By Chef John',
                   cookTimes: 20,
                   rate: Rate(rateStar: 4),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FilterButton(buttons: Buttons(text: '5')),
+                    SizedBox(width: 20),
+                    RatingButton(buttons: Buttons(text: 'text')),
+                  ],
                 ),
               ],
             ),
