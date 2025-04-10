@@ -111,7 +111,7 @@ class _MediumButtonsWidgetState extends State<MediumButtonsWidget> {
             children: [
               Text(
                 widget.buttons.name,
-                style: TextStyles.mediumTextBold.copyWith(color: Colors.white),
+                style: TextStyles.normalTextBold.copyWith(color: Colors.white),
               ),
               const Spacer(),
               const Icon(Icons.arrow_forward, color: Colors.white, size: 20),
@@ -168,7 +168,7 @@ class _SmallButtonsWidgetState extends State<SmallButtonsWidget> {
             children: [
               Text(
                 widget.buttons.name,
-                style: TextStyles.mediumTextBold.copyWith(color: Colors.white),
+                style: TextStyles.smallerTextBold.copyWith(color: Colors.white),
               ),
               const Spacer(),
               const Icon(Icons.arrow_forward, color: Colors.white, size: 20),

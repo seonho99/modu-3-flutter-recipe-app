@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/presentaiton/component/buttons.dart';
 import 'package:recipe_app/presentaiton/component/filter_button.dart';
 import 'package:recipe_app/presentaiton/component/ingredient_item.dart';
+import 'package:recipe_app/presentaiton/component/rating_dialog.dart';
 import 'package:recipe_app/presentaiton/component/recipe_card.dart';
 
 void main() {
@@ -52,6 +53,17 @@ class MyApp extends StatelessWidget {
                 SmallButtonsWidget(
                   onClick: () {},
                   buttons: Buttons(name: 'Button'),
+                ),
+                SizedBox(height: 20),
+
+                RatingDialog(
+                  rating: Rating(
+                    title: 'Rate recipe',
+                    actionName: 'send',
+                    onChange: (value) {
+                      print('$value');
+                    },
+                  ),
                 ),
               ],
             ),
