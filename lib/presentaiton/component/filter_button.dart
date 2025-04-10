@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../ui/color_styles.dart';
 import '../ui/text_styles.dart';
 
-class Buttons {
+class Button {
   final String text;
 
-  const Buttons({required this.text});
+  const Button({required this.text});
 }
 
 class RatingButton extends StatefulWidget {
-  final Buttons buttons;
+  final Button buttons;
 
   const RatingButton({super.key, required this.buttons});
 
@@ -53,7 +53,7 @@ class _RatingButtonState extends State<RatingButton> {
 }
 
 class FilterButton extends StatefulWidget {
-  final Buttons buttons;
+  final Button buttons;
 
   const FilterButton({super.key, required this.buttons});
 
