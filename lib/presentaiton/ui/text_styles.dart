@@ -96,7 +96,7 @@ abstract class TextStyles {
 
   static const TextStyle smallerTextRegular = TextStyle(
     fontSize: 11,
-    height: 27 / 11,
+    height: 17 / 11,
     fontWeight: FontWeight.normal,
     fontFamily: 'Poppins',
   );
