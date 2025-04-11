@@ -24,6 +24,7 @@ class RecipeCard extends StatelessWidget {
   final String author;
   final int cookTimes;
   final Rate rate;
+  final String imageUrl;
 
   const RecipeCard({
     super.key,
@@ -31,6 +32,7 @@ class RecipeCard extends StatelessWidget {
     required this.author,
     required this.cookTimes,
     required this.rate,
+    required this.imageUrl
   });
 
   @override
@@ -49,7 +51,7 @@ class RecipeCard extends StatelessWidget {
           child: Stack(
             children: [
               Image.network(
-                'https://static01.nyt.com/images/2023/05/26/multimedia/MP:-Barbecue-Ribs-jfch/MP:-Barbecue-Ribs-jfch-jumbo.jpg',
+                imageUrl,
                 width: 315,
                 height: 150,
                 fit: BoxFit.cover,

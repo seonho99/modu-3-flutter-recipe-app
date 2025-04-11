@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
                   author: 'By Chef John',
                   cookTimes: 20,
                   rate: Rate(rateStar: 4),
+                  imageUrl: 'https://newsroom.posco.com/kr/wp-content/uploads/2021/08/0818_posco_img_02.png',
                 ),
                 SizedBox(height: 20),
                 Row(

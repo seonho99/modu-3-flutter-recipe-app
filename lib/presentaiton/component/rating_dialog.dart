@@ -68,7 +68,8 @@ class _RatingDialogState extends State<RatingDialog> {
             onTap:
                 send
                     ? () {
-                      widget.rating.onChange;
+                      widget.rating.onChange(selectedStar
+                      );
                       Navigator.pop(context);
                     }
                     : null,
