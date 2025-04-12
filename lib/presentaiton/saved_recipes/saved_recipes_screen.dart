@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/presentaiton/component/recipe_card.dart';
 import 'package:recipe_app/presentaiton/saved_recipes/saved_recipes_view_model.dart';
-
+import 'package:recipe_app/presentaiton/ui/text_styles.dart';
 
 class SavedRecipesScreen extends StatefulWidget {
   final SavedRecipesViewModel savedRecipesViewModel;
@@ -20,25 +21,19 @@ class _SavedRecipesScreenState extends State<SavedRecipesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('저장된 레시피')),
-      body: ListenableBuilder(
-        listenable: widget.savedRecipesViewModel,
-        builder: (context, child) {
-          final recipes = widget.savedRecipesViewModel.recipes;
-
-          return ListView.builder(
-            padding: EdgeInsets.all(16),
-            itemCount: recipes.length,
+    return ListenableBuilder(
+      listenable: widget.savedRecipesViewModel,
+      builder: (context, child) {
+        return Scaffold(
+          body: ListView.builder(
+            itemCount: widget.savedRecipesViewModel.recipes.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: RecipeCard(recipe: recipes[index]),
-              );
+              final recipe = widget.savedRecipesViewModel.recipes[index];
+              return RecipeCard(recipe: recipe);
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

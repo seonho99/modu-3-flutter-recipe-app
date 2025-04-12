@@ -74,8 +74,8 @@ class MockRecipeDataSourceImpl implements RecipeDataSource {
 
   @override
   Future<List<RecipeDto>> getRecipeDto() async {
-    List<dynamic> mockString = await jsonDecode(mockData);
-    List<Map<String,dynamic>> jsonData = mockString.map((e) => e as Map<String, dynamic>).toList();
-    return jsonData.map((e) => RecipeDto.fromJson(e)).toList();
+    Map<String,dynamic> jsonMap = await jsonDecode(mockData);
+    final List<dynamic> profiles = jsonMap['profiles'];
+    return profiles.map((e) => RecipeDto.fromJson(e)).toList();
   }
 }

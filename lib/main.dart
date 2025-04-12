@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/data/model/recipe.dart';
-import 'package:recipe_app/presentaiton/component/buttons.dart';
-import 'package:recipe_app/presentaiton/component/filter_button.dart';
-import 'package:recipe_app/presentaiton/component/ingredient_item.dart';
-import 'package:recipe_app/presentaiton/component/rating_dialog.dart';
-import 'package:recipe_app/presentaiton/component/recipe_card.dart';
-import 'package:recipe_app/presentaiton/splash/splash_screen.dart';
 
-import 'data/model/rating.dart';
+import 'package:recipe_app/presentaiton/saved_recipes/saved_recipes_screen.dart';
+import 'package:recipe_app/presentaiton/saved_recipes/saved_recipes_view_model.dart';
+
 import 'data/repository/recipe_repository_impl.dart';
 
 void main() {
@@ -19,14 +14,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SavedRecipesViewModel savedRecipesViewModel = SavedRecipesViewModel(RecipeRepositoryImpl());
+
     return MaterialApp(
       home: Scaffold(
-        body: SplashScreen(),
+        body: SafeArea(
+          child: SavedRecipesScreen(savedRecipesViewModel: savedRecipesViewModel,),
+        ),
       ),
     );
   }
 }
-
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});
