@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/data/repository/recipe_repository_impl.dart';
 import 'package:recipe_app/presentation/component/half_recipe_card.dart';
-import 'package:recipe_app/presentation/filter/filter_search_bottom_sheet.dart';
 import 'package:recipe_app/presentation/search_recipes/search_recipes_view_model.dart';
 import 'package:recipe_app/presentation/ui/color_styles.dart';
 

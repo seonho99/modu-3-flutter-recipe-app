@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/presentation/ui/color_styles.dart';
 import 'package:recipe_app/presentation/ui/text_styles.dart';
+import 'package:recipe_app/presentation/component/navigation_bar_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -61,8 +62,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30,)
-
+              SizedBox(height: 30),
             ],
           ),
         ),
