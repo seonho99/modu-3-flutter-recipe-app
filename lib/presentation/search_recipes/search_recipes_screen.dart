@@ -34,7 +34,9 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
       builder: (context, child) {
         final state = widget.searchRecipesViewModel.state;
         final isText = _searchController.text.isNotEmpty;
-        return Column(
+        if (widget.searchRecipesViewModel.state.isLoading)
+          return CircularProgressIndicator();
+         return Column(
           children: [
             SizedBox(height: 10),
             Padding(
