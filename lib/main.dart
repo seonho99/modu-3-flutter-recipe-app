@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/data/model/rating.dart';
-import 'package:recipe_app/data/model/recipe.dart';
+
 import 'package:recipe_app/presentation/component/filter_button.dart';
 import 'package:recipe_app/presentation/component/half_recipe_card.dart';
 import 'package:recipe_app/presentation/search_recipes/search_recipes_state.dart';

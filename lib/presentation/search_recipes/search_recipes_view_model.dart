@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/presentation/search_recipes/search_recipes_state.dart';
 
-import '../../data/model/recipe.dart';
-import '../../data/repository/recipe_repository.dart';
+import '../../domain/repository/recipe_repository.dart';
 
 
 
