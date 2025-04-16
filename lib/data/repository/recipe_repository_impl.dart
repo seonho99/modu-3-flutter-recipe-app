@@ -16,4 +16,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
     List<RecipeDto> recipeDto = await dataSource.getRecipeDto();
     return recipeDto.map((dto) => dto.toRecipe()).toList();
   }
+
+  @override
+  Future<List<Recipe>> searchRecipes() {
+    _dataSource.searchRecipes();
+  }
 }

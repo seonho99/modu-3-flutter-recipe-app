@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:recipe_app/data/data_source/recipe_data_source.dart';
 
+import '../../domain/model/recipe.dart';
 import '../dto/recipe_dto.dart';
 
 class MockRecipeDataSourceImpl implements RecipeDataSource {
@@ -291,5 +292,8 @@ class MockRecipeDataSourceImpl implements RecipeDataSource {
     } catch (e) {
       throw Exception(e);
     }
+  }
+  Future<List<Recipe>> searchRecipes(){
+
   }
 }
