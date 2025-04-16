@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../ui/color_styles.dart';
 import '../ui/text_styles.dart';
 
-class SearchField extends StatefulWidget {
-  const SearchField({super.key});
+class SearchField extends StatelessWidget {
+  final TextEditingController controller;
+  final ValueChanged<String>? onChanged;
 
-  @override
-  State<SearchField> createState() => _SearchFieldState();
-}
-
-class _SearchFieldState extends State<SearchField> {
-  final TextEditingController _searchController = TextEditingController();
+  const SearchField({
+    super.key,
+    required this.controller,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,9 @@ class _SearchFieldState extends State<SearchField> {
       width: 255,
       height: 40,
       child: TextFormField(
-        controller: _searchController,
+        controller: controller,
+        onChanged: onChanged,
         style: TextStyles.smallerTextRegular,
-        onChanged: (value) {
-        },
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.fromLTRB(10, 11, 10, 11),

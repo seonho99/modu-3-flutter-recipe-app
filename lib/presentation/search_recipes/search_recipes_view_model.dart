@@ -24,14 +24,26 @@ class SearchRecipesViewModel with ChangeNotifier {
   }
 
   Future<void> fetchSearchRecipes(String inputText) async {
-    // 검색창이 비워있을 때 전체 데이터 가져오기
-    if (inputText.isEmpty) {
-      _state = _state.copyWith(recipes: await _recipeRepository.getRecipe());
-    }
+    _state = _state.copyWith(isLoading: true);
     notifyListeners();
 
-    final filterTitle = _state.recipes.where((e) => e.title.toLowerCase().contains(inputText.toLowerCase())).toList();
-    _state = state.copyWith(recipes: filterTitle,searchKeyword: inputText);
+    if (inputText.isEmpty) {
+      final allRecipes = await _recipeRepository.getRecipe();
+      _state = _state.copyWith(recipes: allRecipes, isLoading: false);
+    } else {
+      final filterTitle =
+          _state.recipes
+              .where(
+                (e) => e.title.toLowerCase().contains(inputText.toLowerCase()),
+              ).toList();
+      _state = state.copyWith(recipes: filterTitle, isLoading: false);
+    }
+
     notifyListeners();
+  }
+
+  Future<void> updateKeyword(String keyword) async {
+    _state = state.copyWith(searchKeyword: keyword);
+    await fetchSearchRecipes(keyword);
   }
 }

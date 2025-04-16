@@ -18,10 +18,19 @@ class SearchRecipesScreen extends StatefulWidget {
 }
 
 class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
+  late final TextEditingController _searchController;
+
   @override
   void initState() {
     super.initState();
+    _searchController = TextEditingController();
     widget.searchRecipesViewModel.fetchRecipes();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -29,20 +38,24 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
     return ListenableBuilder(
       listenable: widget.searchRecipesViewModel,
       builder: (context, child) {
-        SearchField();
-        if (widget.searchRecipesViewModel.state.isLoading) {
-          return CircularProgressIndicator();
+        final state = widget.searchRecipesViewModel.state;
+        final isText = state.searchKeyword.isNotEmpty;
+        final recipeList = isText ? state.filterRecipes : state.recipes;
+
+        if (state.isLoading) {
+          return const Center(child: CircularProgressIndicator());
         }
+
         return Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(Icons.arrow_back, size: 20),
-                  SizedBox(width: 69),
+                  const Icon(Icons.arrow_back, size: 20),
+                  const SizedBox(width: 69),
                   Text(
                     'Search recipes',
                     style: TextStyles.mediumTextBold.copyWith(
@@ -58,117 +71,35 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 31, 0, 0),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 450,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Filter Search',
-                                    style: TextStyles.smallTextBold.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  Container(
-                                    width: 256,
-                                    height: 58,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'Time',
-                                          style: TextStyles.smallerTextBold,
-                                        ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            RatingButton(
-                                              buttons: Button(text: 'All'),
-                                            ),
-                                            SizedBox(width: 10),
-                                            RatingButton(
-                                              buttons: Button(text: 'Newest'),
-                                            ),
-                                            SizedBox(width: 10),
-                                            Flexible(
-                                              child: RatingButton(
-                                                buttons: Button(text: 'Oldest'),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10),
-                                            RatingButton(
-                                              buttons: Button(
-                                                text: 'Popularity',
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  SizedBox(height: 20),
-                                  Text(
-                                    'Rate',
-                                    style: TextStyles.smallerTextBold,
-                                  ),
-                                  SizedBox(height: 10),
-                                  FilterButton(buttons: Button(text: '1')),
-                                  SizedBox(height: 20),
-                                  Text(
-                                    'Category',
-                                    style: TextStyles.smallerTextBold,
-                                  ),
-                                  SizedBox(height: 10),
-                                  FilterButton(buttons: Button(text: '1')),
-                                  SizedBox(height: 10),
-                                  FilterButton(buttons: Button(text: '1')),
-                                  SizedBox(height: 10),
-                                  FilterButton(buttons: Button(text: '1')),
-                                  SizedBox(height: 30),
-                                  SmallButtonsWidget(
-                                    onClick: () {},
-                                    buttons: Buttons(name: 'Filter'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                  SearchField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      widget.searchRecipesViewModel.updateKeyword(value);
                     },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorStyles.primary100,
-                      ),
-                      child: Image.asset(
-                        'assets/icons/outline_setting.png',
-                        color: Colors.white,
-                      ),
+                  ),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: ColorStyles.primary100,
+                    ),
+                    child: Image.asset(
+                      'assets/icons/outline_setting.png',
+                      color: Colors.white,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 112,
                     height: 24,
                     child: Text(
@@ -181,19 +112,19 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: GridView.builder(
-                  itemCount: state.recipes.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  itemCount: recipeList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 15,
                     crossAxisSpacing: 15,
                   ),
                   itemBuilder: (context, index) {
-                    return HalfRecipeCard(recipe: state.filterRecipes[index]);
+                    return HalfRecipeCard(recipe: recipeList[index]);
                   },
                 ),
               ),
