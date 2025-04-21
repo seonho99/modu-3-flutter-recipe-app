@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipe_app/presentation/component/search_field.dart';
 import 'package:recipe_app/presentation/ui/color_styles.dart';
 import 'package:recipe_app/presentation/ui/text_styles.dart';
 import 'package:recipe_app/presentation/component/navigation_bar_widget.dart';
+
+import '../../core/routing/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -73,7 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SearchField(controller: controller),
+                  GestureDetector(
+                      onTap: (){
+                        print('탭됨');
+                        context.go(Routes.home + Routes.search);
+                      },
+                      child: AbsorbPointer(child: SearchField(controller: controller))),
                   SizedBox(width: 20),
                   Container(
                     width: 40,
