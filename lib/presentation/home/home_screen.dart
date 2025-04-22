@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: ColorStyles.primary80,
+                      color: ColorStyles.primary100,
                     ),
                     child: Center(
                       child: Image.asset(

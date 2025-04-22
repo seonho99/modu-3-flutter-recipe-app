@@ -48,95 +48,100 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        return Column(
-          children: [
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Icon(Icons.arrow_back, size: 20),
-                  const SizedBox(width: 69),
-                  Text(
-                    'Search recipes',
-                    style: TextStyles.mediumTextBold.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 17),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SearchField(
-                    controller: _searchController,
-                    onChanged: (value) {
-                      widget.searchRecipesViewModel.updateKeyword(value);
-                    },
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      FilterSearchBottom();
-                    },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorStyles.primary100,
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.arrow_back, size: 20),
+                      const SizedBox(width: 69),
+                      Text(
+                        'Search recipes',
+                        style: TextStyles.mediumTextBold.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      child: Image.asset(
-                        'assets/icons/outline_setting.png',
-                        color: Colors.white,
-                      ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 112,
-                    height: 24,
-                    child: Text(
-                      isText ? 'Recent Search' : 'Search Result',
-                      style: TextStyles.normalTextBold.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: GridView.builder(
-                  itemCount: recipeList.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                  ),
-                  itemBuilder: (context, index) {
-                    return HalfRecipeCard(recipe: recipeList[index]);
-                  },
                 ),
-              ),
+                const SizedBox(height: 17),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SearchField(
+                        controller: _searchController,
+                        onChanged: (value) {
+                          widget.searchRecipesViewModel.updateKeyword(value);
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          FilterSearchBottom();
+                        },
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: ColorStyles.primary100,
+                          ),
+                          child: Image.asset(
+                            'assets/icons/outline_setting.png',
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 112,
+                        height: 24,
+                        child: Text(
+                          isText ? 'Recent Search' : 'Search Result',
+                          style: TextStyles.normalTextBold.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: GridView.builder(
+                      itemCount: recipeList.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 15,
+                        crossAxisSpacing: 15,
+                      ),
+                      itemBuilder: (context, index) {
+                        return HalfRecipeCard(recipe: recipeList[index]);
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );
