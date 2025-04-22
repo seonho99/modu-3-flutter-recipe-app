@@ -1,4 +1,3 @@
-
 import 'package:recipe_app/data/mapper/recipe_mapper.dart';
 
 import '../../domain/model/recipe.dart';
@@ -18,8 +17,16 @@ class RecipeRepositoryImpl implements RecipeRepository {
     return recipeDto.map((dto) => dto.toRecipe()).toList();
   }
 
-  // @override
-  // Future<List<Recipe>> searchRecipes() {
-  //   _dataSource.searchRecipes();
-  // }
+  @override
+  Future<List<Recipe>> searchRecipes(String query) async {
+    List<RecipeDto> allRecipes = await dataSource.getRecipeDto();
+    String lowerQuery = query.toLowerCase();
+
+    List<RecipeDto> filterRecipes =
+        allRecipes.where((recipe) {
+          final recipeName = recipe.name?.toLowerCase() ?? '';
+          return recipeName.contains(lowerQuery);
+        }).toList();
+    return filterRecipes.map((dto) => dto.toRecipe()).toList();
+  }
 }

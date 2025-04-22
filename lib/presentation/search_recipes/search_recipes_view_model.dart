@@ -5,45 +5,44 @@ import '../../domain/repository/recipe_repository.dart';
 
 class SearchRecipesViewModel with ChangeNotifier {
   final RecipeRepository _recipeRepository;
-
-  SearchRecipesState _state = SearchRecipesState();
-
-  SearchRecipesState get state => _state;
+  SearchRecipesState _state;
 
   SearchRecipesViewModel(this._recipeRepository, this._state);
 
+  SearchRecipesState get state => _state;
+
+  set state(SearchRecipesState newState) {
+    _state = newState;
+  }
+
   Future<void> fetchRecipes() async {
-    _state = _state.copyWith(isLoading: true);
+    state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    _state = _state.copyWith(
+    state = state.copyWith(
       recipes: await _recipeRepository.getRecipe(),
       isLoading: false,
     );
     notifyListeners();
   }
 
-  Future<void> fetchSearchRecipes(String inputText) async {
-    _state = _state.copyWith(isLoading: true);
+  Future<void> fetchSearchRecipes(String query) async {
+    state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    if (inputText.isEmpty) {
+    if (query.isEmpty) {
       final allRecipes = await _recipeRepository.getRecipe();
-      _state = _state.copyWith(recipes: allRecipes, isLoading: false);
+      state = state.copyWith(recipes: allRecipes, isLoading: false);
     } else {
-      final filterTitle =
-          _state.recipes
-              .where(
-                (e) => e.title.toLowerCase().contains(inputText.toLowerCase()),
-              ).toList();
-      _state = state.copyWith(recipes: filterTitle, isLoading: false);
+      final searchRecipes = await _recipeRepository.searchRecipes(query);
+      state = state.copyWith(filterRecipes: searchRecipes, isLoading: false);
     }
 
     notifyListeners();
   }
 
   Future<void> updateKeyword(String keyword) async {
-    _state = state.copyWith(searchKeyword: keyword);
+    state = state.copyWith(searchKeyword: keyword);
     await fetchSearchRecipes(keyword);
   }
 }
