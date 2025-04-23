@@ -3,8 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipe_app/presentation/filter/filter_search_bottom_sheet.dart';
 import 'package:recipe_app/presentation/search_recipes/search_recipes_view_model.dart';
 
-import '../component/buttons.dart';
-import '../component/filter_button.dart';
+
 import '../component/half_recipe_card.dart';
 import '../component/search_field.dart';
 import '../ui/color_styles.dart';
@@ -26,7 +25,7 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-    widget.searchRecipesViewModel.fetchRecipes();
+    widget.searchRecipesViewModel;
   }
 
   @override
@@ -79,11 +78,11 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
                       SearchField(
                         controller: _searchController,
                         onChanged: (value) {
-                          widget.searchRecipesViewModel.updateKeyword(value);
+                          widget.searchRecipesViewModel.filterRecipes(value);
                         },
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           FilterSearchBottom();
                         },
                         child: Container(
@@ -110,10 +109,10 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 112,
+                        width: 130,
                         height: 24,
                         child: Text(
-                          isText ? 'Recent Search' : 'Search Result',
+                          isText ? 'Search Result' : 'Recent Search',
                           style: TextStyles.normalTextBold.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -128,11 +127,12 @@ class _SearchRecipesScreenState extends State<SearchRecipesScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: GridView.builder(
                       itemCount: recipeList.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15,
-                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 15,
+                            crossAxisSpacing: 15,
+                          ),
                       itemBuilder: (context, index) {
                         return HalfRecipeCard(recipe: recipeList[index]);
                       },
